@@ -1,0 +1,39 @@
+GET http://localhost:5001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc0NjU1OTQsImV4cCI6MTYzNzQ2NTYwNCwiYXVkIjoiNjE5OTgyZmYxYWQ4OTY2OGY0YjkyYzc5IiwiaXNzIjoiZXhhbXBsZS5jb20ifQ.-RghwRJStTgLNrt9pc2v1fXb_ap9UjMkCIz28DiWHSc
+
+###
+GET http://localhost:5001/test
+
+### SIGNUP
+POST http://localhost:5001/auth/register
+Content-Type: application/json
+
+{
+    "email": "me@me.com",
+    "password": "1234"
+}
+
+### LOGIN
+POST http://localhost:5001/auth/login
+Content-Type: application/json
+
+{
+    "email": "me@me.com",
+    "password": "1234"
+}
+
+### REFRESH TOKENS
+POST http://localhost:5001/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc1MTg5MTgsImV4cCI6MTY2OTA3NjUxOCwiYXVkIjoiNjE5OTgyZmYxYWQ4OTY2OGY0YjkyYzc5IiwiaXNzIjoiZXhhbXBsZS5jb20ifQ.hCORe1F61N8LNbrQtqLQrIrcjO-Bl1sOfE8V25uk4zM"
+}
+
+### LOGOUT
+DELETE http://localhost:5001/auth/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc1MTg5NTIsImV4cCI6MTY2OTA3NjU1MiwiYXVkIjoiNjE5OTgyZmYxYWQ4OTY2OGY0YjkyYzc5IiwiaXNzIjoiZXhhbXBsZS5jb20ifQ.wQC-nO7XAAgOqRb3_az_SMCIeevhEuXfkC8wo2Eruw4"
+}
