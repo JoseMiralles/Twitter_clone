@@ -1,0 +1,22 @@
+#welcome-page {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#auth-form-wrapper {
+    max-width: 600px;
+}
+
+#auth-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+    input[type="text"], input[type="password"] {
+        margin-bottom: 10px;
+    }
+}

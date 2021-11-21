@@ -16,12 +16,11 @@ const WelcomePage = () => {
     }
 
     return (
-        <section className="welcome-page">
+        <section id="welcome-page">
 
-            <div className="form-warpper">
+            <div id="form-section">
 
-                { selectedForm === "Login" && <AuthForm formType={selectedForm}/> }
-                { selectedForm === "Sign Up" && <AuthForm formType={selectedForm}/> }
+                <AuthForm formType={selectedForm}/>
 
                 <div>
                     <p>Want to <a onClick={flipFormEvent} href="*">{oppositeType.toLowerCase()}</a> instead?</p>
@@ -51,17 +50,22 @@ const AuthForm = ({formType}: IAuthFormParams) => {
 
         e.preventDefault();
         
-        (async () => {
-            await submitFunction();
-        })();
+        console.log(formType);
+        
+        if (password && userName) {
+            
+            (async () => {
+                await submitFunction();
+            })();
+        }
     }
 
     return (
-        <div className="auth-form">
+        <div id="auth-form-wrapper">
 
             <h1>{formType}</h1>
 
-            <form onSubmit={onSubmitAuthForm}>
+            <form id="auth-form" onSubmit={onSubmitAuthForm}>
 
                 <label htmlFor="user-name-input">User name:</label>
                 <input type="text" id="user-name-input" value={userName} placeholder="Your username" onChange={(e)=>setUsername(e.target.value)}/>

@@ -1,0 +1,12 @@
+
+@import "colors";
+
+html {
+    color: $foreground;
+    background: $background;
+}
+
+a {
+    color: $main-color;
+    text-decoration: none;
+}
