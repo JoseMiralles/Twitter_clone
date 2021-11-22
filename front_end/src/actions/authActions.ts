@@ -1,4 +1,9 @@
 
+import { AnyAction } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "../model/appModel";
+import { login } from "../util/authUtil";
+
 export interface ISetAuthLoading {
     type: "SET_AUTH_LOADING",
     isLoading: boolean
@@ -42,3 +47,21 @@ export const receiveSession = (
     refreshToken,
     userId
 });
+
+export const loginAction = async (
+    userName: string,
+    password: string
+): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
+    return async (dispatch) => {
+        try {
+            const {jwt, refreshToken, userId} = await login(userName, password);
+            return dispatch(receiveSession(jwt, refreshToken, userId));    
+        }
+        catch (error: any) {
+            return dispatch({
+                type: "RECEIVE_SESSION_ERRORS",
+                errors: [error.response.data.error.message ?? "Something went wrong"]
+            } as IReceiveSessionErrors);
+        }
+    };
+};

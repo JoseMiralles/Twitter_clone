@@ -13,6 +13,10 @@ import "./helpers/initRedis";
 
 const app = express();
 
+app.use(cors({
+    origin: "http://localhost:3000"
+}));
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -42,10 +46,6 @@ app.use((
         }
     });
 });
-
-app.use(cors({
-    origin: "http://localhost:3000"
-}));
 
 const port = process.env.PORT || 5001;
 app.listen(port, () => console.log(`Auth service listening: http://localhost:${port}`));

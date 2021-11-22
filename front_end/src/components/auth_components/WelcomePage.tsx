@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../../actions/authActions";
+import { AppStateType } from "../../model/appModel";
 import "./welcome_page.scss"
 
 type formTypes = "Login" | "Sign Up";
@@ -26,11 +29,34 @@ const WelcomePage = () => {
                     <p>Want to <a onClick={flipFormEvent} href="*">{oppositeType.toLowerCase()}</a> instead?</p>
                 </div>
 
+                <TestUserButtons />
+
             </div>
 
         </section>
     );
 }
+
+const TestUserButtons = () => {
+
+    const numberOfUsers = 3;
+    const buttons = [];
+
+    for (let i = 1; i <= numberOfUsers; i ++) {
+        buttons.push(
+            <button id={i.toString()} key={i}>
+                User {i}
+            </button>
+        );
+    }
+
+    return (
+        <div id="test-user-button-list-section">
+            <p>Login as a demo user:</p>
+            {buttons}
+        </div>
+    );
+};
 
 interface IAuthFormParams {
     formType: formTypes;
@@ -41,10 +67,15 @@ interface IAuthFormParams {
  */
 const AuthForm = ({formType}: IAuthFormParams) => {
 
+    const dispatch = useDispatch();
+    const { sessionErrors } = useSelector((s: AppStateType) => {
+        return {
+            sessionErrors: s.auth.errors
+        }
+    });
+
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    const submitFunction = formType === "Login" ? async()=>{} : async()=>{};
 
     const onSubmitAuthForm = (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -53,9 +84,9 @@ const AuthForm = ({formType}: IAuthFormParams) => {
         console.log(formType);
         
         if (password && userName) {
-            
             (async () => {
-                await submitFunction();
+                if (formType === "Login")
+                    dispatch(await loginAction(userName,password));
             })();
         }
     }
@@ -64,6 +95,10 @@ const AuthForm = ({formType}: IAuthFormParams) => {
         <div id="auth-form-wrapper">
 
             <h1>{formType}</h1>
+
+            <ul id="auth-errors-list">
+                { sessionErrors.map((se, i) => <li key={i}>{se}</li>) }
+            </ul>
 
             <form id="auth-form" onSubmit={onSubmitAuthForm}>
 

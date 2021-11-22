@@ -4,6 +4,7 @@ import { UserActionTypes } from "../actions/userActions";
 import { authReducer } from "../reducers/authReducer";
 import { isDev } from "../util/enviromentUtil";
 import logger from "redux-logger";
+import thunk from "redux-thunk";
 
 export type appActionsTypes =
     UserActionTypes |
@@ -22,6 +23,7 @@ export const configureStore = (): Store<AppStateType> => {
     return createStore(
         rootReducer,
         applyMiddleware(
+            thunk,
             ...middleWare
         )
     );
