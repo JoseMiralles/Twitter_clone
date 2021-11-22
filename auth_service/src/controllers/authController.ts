@@ -38,7 +38,11 @@ namespace authController {
             const accessToken = await signAccessToken(savedUser.id);
             const refreshToken = await signRefreshToken(savedUser.id);
     
-            res.send({accessToken, refreshToken});
+            res.send({
+                accessToken,
+                refreshToken,
+                userId: savedUser.id
+            });
     
         } catch (error: any) {
     
@@ -70,7 +74,11 @@ namespace authController {
             const accessToken = await signAccessToken(user.id);
             const refreshToken = await signRefreshToken(user.id);
     
-            res.send({accessToken, refreshToken});
+            res.send({
+                accessToken,
+                refreshToken,
+                userId: user.id
+            });
     
         } catch (error: any) {
             
@@ -98,7 +106,11 @@ namespace authController {
             const accessToken = await signAccessToken(userId);
             const refreshToken = await signRefreshToken(userId);
     
-            res.send({ accessToken, refreshToken });
+            res.send({
+                accessToken,
+                refreshToken,
+                userId
+            });
     
         } catch (error) {
             next(error);

@@ -15,3 +15,19 @@ ul {
     list-style-type: none;
     padding: 0px;
 }
+
+input[type="text"], input[type="password"] {
+    padding: 7px;
+}
+
+button, input[type="submit"] {
+    padding: 8px;
+    border: none;
+    font-weight: bold;
+    color: white;
+    background-color: $main-color;
+
+    &:hover {
+        background-color: darken($color: $main-color, $amount: 10);
+    }
+}

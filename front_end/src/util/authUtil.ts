@@ -9,10 +9,12 @@ if (process.env.REACT_APP_AUTH_API_URL) {
     throw new Error("REACT_APP_AUTH_API_URL not specified in .env!");
 }
 
+type AuthPayload = {accessToken: string, refreshToken: string, userId: string};
+
 export const login = async (
     userName: string,
     password: string
-): Promise<{accessToken: string, refreshToken: string, userId: string}> => {
+): Promise<AuthPayload> => {
     
     const res = await axios({
         url: authUrl + "/login",
@@ -20,14 +22,13 @@ export const login = async (
         data: { userName, password }
     });
 
-    console.log(res);
     return res.data;
 };
 
 export const signup = async (
     userName: string,
     password: string
-): Promise<IUser> => {
+): Promise<AuthPayload> => {
 
     const res = await axios({
         url: authUrl + "/signup",
@@ -35,8 +36,21 @@ export const signup = async (
         data: { userName, password }
     });
 
-    console.log(res);
     return res.data;
+};
+
+export const refreshToken = async (
+    accessToken: string,
+    refreshToken: string
+): Promise<AuthPayload> => {
+
+    const res = await axios({
+        url: authUrl + "/refresh-token",
+        method: "POST",
+        data: { accessToken, refreshToken }
+    });
+
+    return res.data
 };
 
 export const logout = async (

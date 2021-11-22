@@ -2,7 +2,7 @@
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../model/appModel";
-import { login } from "../util/authUtil";
+import { login, logout } from "../util/authUtil";
 
 export interface ISetAuthLoading {
     type: "SET_AUTH_LOADING",
@@ -64,4 +64,21 @@ export const loginAction = async (
             } as IReceiveSessionErrors);
         }
     };
+};
+
+export const logoutAction = async (
+    refreshToken: string
+): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
+    return async (dispatch) => {
+        try {
+            
+            await logout(refreshToken);
+            dispatch({
+                type: "REMOVE_SESSION"
+            } as IRemoveSession);
+
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
 };
