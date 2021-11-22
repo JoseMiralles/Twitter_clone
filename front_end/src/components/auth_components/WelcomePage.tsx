@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../../actions/authActions";
+import { loginAction, signUpAction } from "../../actions/authActions";
 import { AppStateType } from "../../model/appModel";
 import "./welcome_page.scss"
 
@@ -86,7 +86,9 @@ const AuthForm = ({formType}: IAuthFormParams) => {
         if (password && userName) {
             (async () => {
                 if (formType === "Login")
-                    dispatch(await loginAction(userName,password));
+                    dispatch(await loginAction(userName, password));
+                else
+                    dispatch(await signUpAction(userName, password));
             })();
         }
     }

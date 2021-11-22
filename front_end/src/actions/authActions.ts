@@ -2,7 +2,7 @@
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../model/appModel";
-import { login, logout } from "../util/authUtil";
+import { login, logout, signup } from "../util/authUtil";
 
 export interface ISetAuthLoading {
     type: "SET_AUTH_LOADING",
@@ -11,9 +11,8 @@ export interface ISetAuthLoading {
 
 export interface IReceiveSession {
     type: "RECEIVE_SESSION";
-    accessToken: string;
-    refreshToken: string;
     userId: string;
+    userName: string;
 }
 
 export interface IRemoveSession {
@@ -38,26 +37,27 @@ export const setAuthLoading = (isLoading: boolean): ISetAuthLoading => ({
 });
 
 export const receiveSession = (
-    accessToken: string,
-    refreshToken: string,
+    userName: string,
     userId: string
 ): IReceiveSession => ({
     type: "RECEIVE_SESSION",
-    accessToken,
-    refreshToken,
-    userId
+    userId,
+    userName
 });
 
 export const loginAction = async (
     userName: string,
     password: string
 ): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
+
     return async (dispatch) => {
         try {
-            const {accessToken, refreshToken, userId} = await login(userName, password);
-            return dispatch(receiveSession(accessToken, refreshToken, userId));    
+
+            const {userId} = await login(userName, password);
+            return dispatch(receiveSession(userName, userId));    
         }
         catch (error: any) {
+
             return dispatch({
                 type: "RECEIVE_SESSION_ERRORS",
                 errors: [error.response.data.error.message ?? "Something went wrong"]
@@ -66,9 +66,31 @@ export const loginAction = async (
     };
 };
 
+export const signUpAction = async (
+    userName: string,
+    password: string
+): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
+
+    return async (dispatch) => {
+        try {
+            
+            const {userId} = await signup(userName, password);
+            return dispatch(receiveSession(userName, userId));
+        }
+        catch (error: any) {
+            
+            return dispatch({
+                type: "RECEIVE_SESSION_ERRORS",
+                errors: [error.response.data.error.message ?? "Something went wrong"]
+            } as IReceiveSessionErrors);
+        }
+    }
+};
+
 export const logoutAction = async (
     refreshToken: string
 ): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
+
     return async (dispatch) => {
         try {
             
@@ -78,6 +100,7 @@ export const logoutAction = async (
             } as IRemoveSession);
 
         } catch (error: any) {
+
             console.log(error.message);
         }
     }

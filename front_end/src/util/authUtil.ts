@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import { IUser } from "../model/userModel";
 
 
@@ -9,7 +10,7 @@ if (process.env.REACT_APP_AUTH_API_URL) {
     throw new Error("REACT_APP_AUTH_API_URL not specified in .env!");
 }
 
-type AuthPayload = {accessToken: string, refreshToken: string, userId: string};
+type AuthPayload = {userId: string};
 
 export const login = async (
     userName: string,
@@ -31,7 +32,7 @@ export const signup = async (
 ): Promise<AuthPayload> => {
 
     const res = await axios({
-        url: authUrl + "/signup",
+        url: authUrl + "/register",
         method: "POST",
         data: { userName, password }
     });
