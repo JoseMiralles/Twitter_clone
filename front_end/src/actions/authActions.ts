@@ -11,7 +11,7 @@ export interface ISetAuthLoading {
 
 export interface IReceiveSession {
     type: "RECEIVE_SESSION";
-    jwt: string;
+    accessToken: string;
     refreshToken: string;
     userId: string;
 }
@@ -38,12 +38,12 @@ export const setAuthLoading = (isLoading: boolean): ISetAuthLoading => ({
 });
 
 export const receiveSession = (
-    jwt: string,
+    accessToken: string,
     refreshToken: string,
     userId: string
 ): IReceiveSession => ({
     type: "RECEIVE_SESSION",
-    jwt,
+    accessToken,
     refreshToken,
     userId
 });
@@ -54,8 +54,8 @@ export const loginAction = async (
 ): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
     return async (dispatch) => {
         try {
-            const {jwt, refreshToken, userId} = await login(userName, password);
-            return dispatch(receiveSession(jwt, refreshToken, userId));    
+            const {accessToken, refreshToken, userId} = await login(userName, password);
+            return dispatch(receiveSession(accessToken, refreshToken, userId));    
         }
         catch (error: any) {
             return dispatch({

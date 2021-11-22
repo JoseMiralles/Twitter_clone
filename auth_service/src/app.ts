@@ -26,6 +26,11 @@ app.get("/", verifyAccessToken, async ( req, res, next ) => {
     res.send("Hello from express!");
 });
 
+app.use((req, res, next) => {
+    console.log(req.body);
+    next();
+});
+
 app.use("/auth", authRouter);
 
 // Handle not found

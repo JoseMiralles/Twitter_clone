@@ -21,17 +21,17 @@ namespace authController {
              */
     
             const result = await authSchema.validateAsync({
-                email: req.body.email,
+                userName: req.body.userName,
                 password: req.body.password
             });
     
-            const exist = await User.findOne({ email: result.email });
+            const exist = await User.findOne({ userName: result.userName });
     
             if (exist)
-                throw new createHttpError.Conflict("Email is already in use");
+                throw new createHttpError.Conflict("userName is already in use");
     
             const user = new User ({ 
-                email: result.email,
+                userName: result.userName,
                 password: result.password
             });
             const savedUser = await user.save();
@@ -57,7 +57,7 @@ namespace authController {
             const result = await authSchema.validateAsync(
                 req.body
             );
-            const user = await User.findOne({email: result.email});
+            const user = await User.findOne({userName: result.userName});
     
             if (!user) throw new createHttpError.NotFound("User not registered");
     

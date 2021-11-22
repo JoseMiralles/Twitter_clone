@@ -9,7 +9,7 @@ POST http://localhost:5001/auth/register
 Content-Type: application/json
 
 {
-    "email": "me@me.com",
+    "userName": "charles_babbage",
     "password": "1234"
 }
 
@@ -18,7 +18,7 @@ POST http://localhost:5001/auth/login
 Content-Type: application/json
 
 {
-    "email": "me@me.com",
+    "userName": "charles_babbage",
     "password": "1234"
 }
 

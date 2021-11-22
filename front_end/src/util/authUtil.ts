@@ -10,14 +10,14 @@ if (process.env.REACT_APP_AUTH_API_URL) {
 }
 
 export const login = async (
-    username: string,
+    userName: string,
     password: string
-): Promise<{jwt: string, refreshToken: string, userId: string}> => {
+): Promise<{accessToken: string, refreshToken: string, userId: string}> => {
     
     const res = await axios({
         url: authUrl + "/login",
         method: "POST",
-        data: { username, password }
+        data: { userName, password }
     });
 
     console.log(res);
@@ -25,14 +25,14 @@ export const login = async (
 };
 
 export const signup = async (
-    username: string,
+    userName: string,
     password: string
 ): Promise<IUser> => {
 
     const res = await axios({
         url: authUrl + "/signup",
         method: "POST",
-        data: { username, password }
+        data: { userName, password }
     });
 
     console.log(res);
