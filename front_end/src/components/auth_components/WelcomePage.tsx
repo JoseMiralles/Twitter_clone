@@ -39,21 +39,39 @@ const WelcomePage = () => {
 
 const TestUserButtons = () => {
 
-    const numberOfUsers = 3;
+    const users: {username: string, pass: string}[] = [
+        { username: "charles_babbage", pass: "1234" },
+        { username: "grace_hopper", pass: "1234" }
+    ];
     const buttons = [];
+    const dispatch = useDispatch();
 
-    for (let i = 1; i <= numberOfUsers; i ++) {
+    for (let i = 0; i < users.length ; i ++) {
         buttons.push(
             <button id={i.toString()} key={i}>
-                User {i}
+                { users[i].username }
             </button>
         );
     }
 
+    const onClick = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        (async () => {
+            
+            const index = (e.target as EventTarget & {id:number} ).id;
+            const user = users[index];
+
+            dispatch(await loginAction(user.username, user.pass));
+        })();
+    };
+
     return (
         <div id="test-user-button-list-section">
             <p>Login as a demo user:</p>
-            {buttons}
+            <div onClick={onClick} id="test-user-button-list">
+                {buttons}
+            </div>
         </div>
     );
 };

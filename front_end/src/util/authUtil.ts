@@ -44,15 +44,17 @@ export const signup = async (
     return res.data;
 };
 
-export const logout = async (
-    refreshToken: string
-): Promise<boolean> => {
+export const logout = async (): Promise<boolean> => {
+
+    const refreshToken = loadRefreshToken();
 
     await axios({
         url: authUrl + "/logout",
         method: "DELETE",
         data: { refreshToken }
     });
+
+    removeRefreshToken();
 
     return true;
 };

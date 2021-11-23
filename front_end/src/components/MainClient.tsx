@@ -1,9 +1,13 @@
 import React from "react";
+import LogoutButton from "./top_bar_components/logoutButton";
 
 const MainClient = () => {
 
     return (
-        <h1>CLIENT</h1>
+        <section>
+            <h1>Main Client</h1>
+            <LogoutButton />
+        </section>
     );
 }
 

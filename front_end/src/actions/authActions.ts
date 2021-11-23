@@ -84,14 +84,13 @@ export const signUpAction = async (
     }
 };
 
-export const logoutAction = async (
-    refreshToken: string
-): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
+export const logoutAction = async (): Promise<ThunkAction<void, AppStateType, unknown, AnyAction>> => {
 
     return async (dispatch) => {
         try {
-            
-            await logout(refreshToken);
+
+            await logout();
+
             dispatch({
                 type: "REMOVE_SESSION"
             } as IRemoveSession);
