@@ -12,7 +12,6 @@ export interface ISetAuthLoading {
 export interface IReceiveSession {
     type: "RECEIVE_SESSION";
     userId: string;
-    userName: string;
 }
 
 export interface IRemoveSession {
@@ -37,12 +36,10 @@ export const setAuthLoading = (isLoading: boolean): ISetAuthLoading => ({
 });
 
 export const receiveSession = (
-    userName: string,
     userId: string
 ): IReceiveSession => ({
     type: "RECEIVE_SESSION",
-    userId,
-    userName
+    userId
 });
 
 export const loginAction = async (
@@ -54,7 +51,7 @@ export const loginAction = async (
         try {
 
             const {userId} = await login(userName, password);
-            return dispatch(receiveSession(userName, userId));    
+            return dispatch(receiveSession(userId));    
         }
         catch (error: any) {
 
@@ -75,7 +72,7 @@ export const signUpAction = async (
         try {
             
             const {userId} = await signup(userName, password);
-            return dispatch(receiveSession(userName, userId));
+            return dispatch(receiveSession(userId));
         }
         catch (error: any) {
             
