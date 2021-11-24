@@ -38,42 +38,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
-var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-require("./helpers/mongoInit");
-var express_1 = __importDefault(require("express"));
-var cors_1 = __importDefault(require("cors"));
-var express_graphql_1 = require("express-graphql");
-var http_errors_1 = __importDefault(require("http-errors"));
-var schema_1 = __importDefault(require("./schema"));
-var app = (0, express_1.default)();
-app.use((0, cors_1.default)({ origin: "http://localhost:3000" }));
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
-// app.use(verifyAccessToken);
-app.get("/", function (req, res) {
-    res.send("Authorized!!!");
+var mongoose_1 = __importDefault(require("mongoose"));
+//@ts-ignore Issue with mongoose type not including "useNewUrlParser", or "useUnifiedTopology".
+mongoose_1.default.connect((_a = process.env.MONGODB_URL) !== null && _a !== void 0 ? _a : "MONGODB_URI not defined!", {
+    dbName: (_b = process.env.MONGO_DB_NAME) !== null && _b !== void 0 ? _b : "MONGO_DB_NAME not defined!",
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+}).then(function () {
+    console.log("MongoDB connected.");
+}).catch(function (err) {
+    console.log(err.message);
 });
-app.use("/graphql", (0, express_graphql_1.graphqlHTTP)({
-    schema: schema_1.default,
-    graphiql: true
-}));
-// Handle not found
-app.use(function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+mongoose_1.default.connection.on("connected", function () {
+    console.log("Mongoose connected to db");
+});
+mongoose_1.default.connection.on("error", function (err) {
+    console.log(err.message);
+});
+mongoose_1.default.connection.on("disconnected", function () {
+    console.log("Disconnected from MongoDB");
+});
+// This process runs with we end the app.
+process.on("SIGINT", function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        next(new http_errors_1.default.NotFound("Route was not found."));
-        return [2 /*return*/];
-    });
-}); });
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send({
-        error: {
-            status: err.status || 500,
-            message: err.message
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, mongoose_1.default.connection.close()];
+            case 1:
+                _a.sent();
+                process.exit(0);
+                return [2 /*return*/];
         }
     });
-});
-var port = 5000;
-app.listen(port, function () { return console.log("GQL Listening: http://localhost:" + port); });
+}); });

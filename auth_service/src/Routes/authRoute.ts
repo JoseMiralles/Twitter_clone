@@ -1,9 +1,4 @@
 import express from "express";
-import createHttpError from "http-errors";
-import User from "../models/userModel";
-import { authSchema } from "../helpers/validationSchema";
-import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../helpers/jwtHelper";
-import redisClient from "../helpers/initRedis";
 import authController from "../controllers/authController";
 
 const authRouter = express.Router();

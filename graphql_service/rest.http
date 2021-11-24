@@ -3,6 +3,10 @@ POST http://localhost:5000/graphql
 content-type: application/json
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc3MTU5NzQsImV4cCI6MTYzNzcxOTU3NCwiYXVkIjoiNjE5ZDhmYmYzZTJiMjIwODY5NTNkZTkyIiwiaXNzIjoiZXhhbXBsZS5jb20ifQ.gEafnOOiDqulUSg0zjeRA-ZfxaD-pkAqlrkgdg1uXgI
 
+{
+    
+}
+
 ### Get token from auth service
 POST http://localhost:5001/auth/login
 content-Type: application/json
