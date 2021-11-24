@@ -1,9 +1,10 @@
-
+@import "fonts";
 @import "colors";
 
 html {
     color: $foreground;
     background: $background;
+    font-family: $main-font;
 }
 
 a {
@@ -16,12 +17,22 @@ ul {
     padding: 0px;
 }
 
+hr {
+    border: 1px solid transparentize($color: $foreground, $amount: 0.95);
+}
+
+label {
+    margin-bottom: 6px;
+}
+
+$inputs-padding: 10px;
+
 input[type="text"], input[type="password"] {
-    padding: 7px;
+    padding: $inputs-padding;
 }
 
 button, input[type="submit"] {
-    padding: 8px;
+    padding: $inputs-padding;
     border: none;
     font-weight: bold;
     color: white;
@@ -29,5 +40,14 @@ button, input[type="submit"] {
 
     &:hover {
         background-color: darken($color: $main-color, $amount: 10);
+    }
+}
+
+.btn-secondary {
+    color: $foreground !important;
+    background-color: darken($color: $background, $amount: 4) !important;
+
+    &:hover {
+        background-color: darken($color: $background, $amount: 10) !important;
     }
 }

@@ -26,8 +26,16 @@ const WelcomePage = () => {
                 <AuthForm formType={selectedForm}/>
 
                 <div>
-                    <p>Want to <a onClick={flipFormEvent} href="*">{oppositeType.toLowerCase()}</a> instead?</p>
+                    <p>Want to
+                        <a onClick={flipFormEvent} href="*">
+                            <b>
+                                {` ${oppositeType.toLowerCase()} `}
+                            </b>
+                        </a>
+                         instead?</p>
                 </div>
+
+                <hr/>
 
                 <TestUserButtons />
 
@@ -122,13 +130,13 @@ const AuthForm = ({formType}: IAuthFormParams) => {
 
             <form id="auth-form" onSubmit={onSubmitAuthForm}>
 
-                <label htmlFor="user-name-input">User name:</label>
+                <label htmlFor="user-name-input">User name</label>
                 <input type="text" id="user-name-input" value={userName} placeholder="Your username" onChange={(e)=>setUsername(e.target.value)}/>
 
                 <label htmlFor="password-input">Password</label>
                 <input type="password" id="password-input" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 
-                <input type="submit" value="submit" />
+                <input className="btn-secondary" type="submit" value="submit" />
 
             </form>
 
