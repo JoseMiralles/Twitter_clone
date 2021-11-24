@@ -7,11 +7,12 @@ exports.verifyAccessToken = void 0;
 var http_errors_1 = __importDefault(require("http-errors"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var verifyAccessToken = function (req, res, next) {
+    var _a;
     if (!req.headers["authorization"])
         return next(new http_errors_1.default.Unauthorized());
     var authHeader = req.headers["authorization"];
     var token = authHeader.split(" ")[1]; // Remove "Bearer " from the value.
-    jsonwebtoken_1.default.verify(token, "32cff7225b1b848f46d8f77fa7b8dc2865b2039dffe5f5aa29debfa19435d80c", function (err, payload) {
+    jsonwebtoken_1.default.verify(token, (_a = process.env.ACCESS_TOKEN_SECRET) !== null && _a !== void 0 ? _a : "", function (err, payload) {
         if (err)
             return next(new http_errors_1.default.Unauthorized(err.message));
         req.payload = payload;

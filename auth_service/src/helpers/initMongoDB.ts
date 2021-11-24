@@ -5,7 +5,7 @@ import mongoose, { mongo } from "mongoose";
 mongoose.connect(
     process.env.MONGODB_URL ?? "MONGODB_URI not defined!",
     {
-        dbName: process.env.DB_NAME ?? "DB_NAME not defined!",
+        dbName: process.env.MONGO_DB_NAME ?? "MONGO_DB_NAME not defined!",
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
