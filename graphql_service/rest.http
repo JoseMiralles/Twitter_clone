@@ -4,7 +4,7 @@ content-type: application/json
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc3MTU5NzQsImV4cCI6MTYzNzcxOTU3NCwiYXVkIjoiNjE5ZDhmYmYzZTJiMjIwODY5NTNkZTkyIiwiaXNzIjoiZXhhbXBsZS5jb20ifQ.gEafnOOiDqulUSg0zjeRA-ZfxaD-pkAqlrkgdg1uXgI
 
 {
-    
+    "query": "{ user(id: \"619d8fbf3e2b22086953de92\") { id userName } }"
 }
 
 ### Get token from auth service

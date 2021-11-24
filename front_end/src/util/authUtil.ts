@@ -1,9 +1,8 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { IUser } from "../model/userModel";
 
 
-let authUrl = "";
+let authUrl: string;
 if (process.env.REACT_APP_AUTH_API_URL) {
     authUrl = process.env.REACT_APP_AUTH_API_URL
 } else {

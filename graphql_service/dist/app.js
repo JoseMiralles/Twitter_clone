@@ -59,6 +59,11 @@ app.use("/graphql", (0, express_graphql_1.graphqlHTTP)({
     schema: schema_1.default,
     graphiql: true
 }));
+app.use(function (req, res, next) {
+    console.log(req.body);
+    console.log(res.json);
+    return next();
+});
 // Handle not found
 app.use(function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

@@ -5,13 +5,15 @@ import { authReducer } from "../reducers/authReducer";
 import { isDev } from "../util/enviromentUtil";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
+import { userReducer } from "../reducers/userReducer";
 
 export type appActionsTypes =
     UserActionTypes |
     authActionTypes;
 
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    user: userReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;
