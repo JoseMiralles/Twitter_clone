@@ -1,0 +1,14 @@
+### Get User
+POST http://localhost:5000/graphql
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc3MTUxMzQsImV4cCI6MTYzNzcxODczNCwiYXVkIjoiNjE5YmViMzlkMDg4OWY0Nzc4MTZjODNhIiwiaXNzIjoiZXhhbXBsZS5jb20ifQ.NVwjp6xBICe0IFJcxmuWnL5SKgA0nRTVcoY0EnKSOIs
+
+### Get token from auth service
+POST http://localhost:5001/auth/login
+content-Type: application/json
+authorization: "Bearer "
+
+{
+    "userName": "charles_babbage",
+    "password": "1234"
+}

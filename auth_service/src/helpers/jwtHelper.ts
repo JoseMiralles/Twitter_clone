@@ -50,9 +50,9 @@ export const verifyAccessToken = (req: any, res: any, next: any) => {
         process.env.ACCESS_TOKEN_SECRET ?? "",
         (err: any, payload: any) => {
 
-            if (err.name == "JsonWebTokenError")
+            if (err.name === "JsonWebTokenError")
                 return next(new createHttpError.Unauthorized());
-            else
+            else if (err)
                 return next(new createHttpError.Unauthorized(err.message));
 
             req.payload = payload;
