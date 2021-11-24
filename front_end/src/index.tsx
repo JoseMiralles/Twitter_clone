@@ -7,7 +7,6 @@ import "./normalize.css"
 import "./main.scss";
 import { Provider } from "react-redux";
 import { configureStore } from './model/appModel';
-import { restoreSession } from "./util/authUtil";
 
 ReactDOM.render(
   <React.StrictMode>

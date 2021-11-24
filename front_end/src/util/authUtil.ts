@@ -91,9 +91,7 @@ export const receiveTokens = (
         // If the token is expired, refresh it.
         if (new Date() >= expDate && !refreshToken) {
 
-            refreshingToken = true;
             await performTokenRefresh();
-            refreshingToken = false;
         }
 
         return config;
@@ -111,10 +109,16 @@ let refreshingToken = false;
  */
 export const performTokenRefresh = async (): Promise<AuthPayload | null> => {
 
+    if (refreshingToken) return null;
+    refreshingToken = true;
+
     let refreshToken = loadRefreshToken();
 
     // Session cannot be restored.
-    if (!refreshToken) return null;
+    if (!refreshToken) {
+        refreshingToken = false;
+        return null;
+    }
 
     const res = await axios({
         url: authUrl + "/refresh-token",
@@ -126,10 +130,14 @@ export const performTokenRefresh = async (): Promise<AuthPayload | null> => {
     const accessToken = res.data.accessToken;
     
     // Token restoration was rejected.
-    if (!refreshToken || !accessToken) return null;
+    if (!refreshToken || !accessToken) {
+        refreshingToken = false;
+        return null;
+    }
 
     receiveTokens(accessToken, refreshToken);
 
+    refreshingToken = false;
     return res.data
 };
 

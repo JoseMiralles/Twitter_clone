@@ -23,8 +23,6 @@ export const userReducer = (
                 users: userObject
             }
 
-        break;
-
         case "RECEIVE_ONE_USER":
 
             const addition: {[userId: string]: IUser} = {};
@@ -34,8 +32,6 @@ export const userReducer = (
                 ...state,
                 users: Object.assign(state.users, addition)
             }
-
-        break;
 
         case "REMOVE_SESSION": {
 
