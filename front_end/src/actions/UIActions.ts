@@ -10,3 +10,8 @@ export interface ISetUILoading {
 }
 
 export type UIActions = ISetPageTitle | ISetUILoading;
+
+export const setTitle = (title: string): ISetPageTitle => ({
+    type: "SET_PAGE_TITLE",
+    title
+} as const);

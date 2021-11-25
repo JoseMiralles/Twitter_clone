@@ -4,4 +4,6 @@ $main-color: royalblue;
 $foreground: #0f1419;
 $background: white;
 
+$border-color: transparentize($color: $foreground, $amount: 0.95);
+
 $warning: red;

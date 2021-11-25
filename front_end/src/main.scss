@@ -18,7 +18,7 @@ ul {
 }
 
 hr {
-    border: 1px solid transparentize($color: $foreground, $amount: 0.95);
+    border: 1px solid $border-color;
 }
 
 label {

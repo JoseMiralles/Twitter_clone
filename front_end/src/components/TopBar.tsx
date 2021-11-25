@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { AppStateType } from "../model/appModel";
+import "./top-bar.scss"
 
 const TopBar = () => {
 
@@ -9,7 +10,19 @@ const TopBar = () => {
     });
 
     return (
-        <h1>{title}</h1>
+        <section id="top-bar-wrapper">
+            <div id="top-bar">
+
+                <div id="bar-icon-wrapper">
+                    <div id="bar-icon"></div>
+                </div>
+
+                <div id="page-title-wrapper">
+                    <h3>{title}</h3>
+                </div>
+
+            </div>
+        </section>
     );
 }
 
