@@ -1,19 +1,29 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AppStateType } from "../model/appModel";
-import LogoutButton from "./top_bar_components/logoutButton";
+import Home from "./Home";
+import TopBar from "./TopBar";
 
 const MainClient = () => {
 
-    const user = useSelector(function (s: AppStateType) {
-        if (s.auth.userId) return s.user.users[s.auth.userId]
-    });
-
     return (
-        <section>
-            <h1>{ user?.userName ?? "Main Activity" }</h1>
-            <LogoutButton />
-        </section>
+        <BrowserRouter>
+            <section id="main-client-wrapper">
+                <div id="main-client">
+
+                    <TopBar/>
+
+                    <Routes>
+
+                        <Route path={"/"} element={<Navigate to={"/home"}/>} />
+                        <Route path={"/home"} element={<Home/>}/>
+
+                    </Routes>
+
+                </div>
+            </section>
+        </BrowserRouter>
     );
 }
 
