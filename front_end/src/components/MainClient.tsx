@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AppStateType } from "../model/appModel";
 import Home from "./Home";
-import TopBar from "./TopBar";
+import TopBar from "./top_bar_components/TopBar";
 
 const MainClient = () => {
 

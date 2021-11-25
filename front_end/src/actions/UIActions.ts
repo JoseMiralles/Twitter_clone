@@ -1,3 +1,4 @@
+import { modalTypes } from "../model/UIModel";
 
 export interface ISetPageTitle {
     type: "SET_PAGE_TITLE";
@@ -9,9 +10,19 @@ export interface ISetUILoading {
     isLoading: boolean;
 }
 
-export type UIActions = ISetPageTitle | ISetUILoading;
+export interface ISetModal {
+    type: "CHOOSE_MODAL";
+    modal: modalTypes;
+}
+
+export type UIActions = ISetPageTitle | ISetUILoading | ISetModal;
 
 export const setTitle = (title: string): ISetPageTitle => ({
     type: "SET_PAGE_TITLE",
     title
+} as const);
+
+export const setModal = (modal: modalTypes): ISetModal => ({
+    type: "CHOOSE_MODAL",
+    modal
 } as const);

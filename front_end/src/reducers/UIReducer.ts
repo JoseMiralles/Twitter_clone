@@ -3,7 +3,8 @@ import { IUIState } from "../model/UIModel";
 
 const initialState: IUIState  = {
     loading: false,
-    pageTitle: ""
+    pageTitle: "",
+    modal: "NONE"
 }
 
 const UIReducer = (
@@ -24,6 +25,13 @@ const UIReducer = (
             return {
                 ...state,
                 loading: action.isLoading
+            }
+        }
+
+        case "CHOOSE_MODAL": {
+            return {
+                ...state,
+                modal: action.modal
             }
         }
 

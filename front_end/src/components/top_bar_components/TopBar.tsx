@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { AppStateType } from "../model/appModel";
+import { AppStateType } from "../../model/appModel";
 import "./top-bar.scss"
 
 const TopBar = () => {

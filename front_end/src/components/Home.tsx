@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTitle } from "../actions/UIActions";
-import { appActionsTypes } from "../model/appModel";
+import { AppStateType } from "../model/appModel";
+import ComposeButton from "./TweetComponents/ComposeButton";
+import ComposeTweetModal from "./TweetComponents/ComposeTweetModal";
 
 const Home = () => {
 
     const dispatch = useDispatch();
+
+    const modal = useSelector((s: AppStateType) => {
+        return s.ui.modal;
+    });
 
     useEffect(() => {
         dispatch(setTitle("Home"));
@@ -14,8 +20,13 @@ const Home = () => {
     return(
         <section id="home-wrapper" className="page">
             <div id="home">
-                <p>Content goes here</p>
+                
             </div>
+
+            <ComposeButton floating={true} />
+
+            { modal === "COMPOSE" && <ComposeTweetModal/> }
+
         </section>
     );
 }
