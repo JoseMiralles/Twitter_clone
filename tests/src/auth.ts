@@ -5,9 +5,8 @@ import "mocha";
 import axios from "axios";
 import { assert } from "console";
 import { expect } from "chai";
+import { authUrl, password, secondPassword, secondUserName, userName } from "./helpers/helpers";
 
-const authUrl = process.env.AUTH_SERVICE_URL;
-const gqlUrl = process.env.GRAPHQL_SERVICE_ULR;
 
 describe("Authentication", () => {
 

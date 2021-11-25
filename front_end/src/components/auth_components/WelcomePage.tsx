@@ -57,7 +57,7 @@ const TestUserButtons = () => {
     for (let i = 0; i < users.length ; i ++) {
         buttons.push(
             <button id={i.toString()} key={i}>
-                { users[i].username }
+                { users[i].username.replace("_", " ") + " >" }
             </button>
         );
     }

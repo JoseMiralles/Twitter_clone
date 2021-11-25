@@ -60,6 +60,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importStar(require("mongoose"));
 var http_errors_1 = __importDefault(require("http-errors"));
+var jsonwebtoken_1 = require("jsonwebtoken");
 var userSchema = new mongoose_1.Schema({
     userName: {
         type: String,
@@ -77,15 +78,23 @@ var User = mongoose_1.default.model("user", userSchema);
 var MongoDBUserRepository = /** @class */ (function () {
     function MongoDBUserRepository() {
     }
-    MongoDBUserRepository.prototype.getUser = function (userId, third) {
+    MongoDBUserRepository.prototype.extractUserIdFromRequest = function (request) {
+        var jwt = Object.values(request.rawHeaders).find(function (k) { return k.includes("Bearer"); });
+        jwt = jwt.split(" ")[1];
+        jwt = (0, jsonwebtoken_1.decode)(jwt);
+        return jwt.aud;
+    };
+    MongoDBUserRepository.prototype.checkUserAuthorization = function (resourceId, request) {
+        var claimUserId = this.extractUserIdFromRequest(request);
+        if (!claimUserId || claimUserId !== resourceId)
+            throw new http_errors_1.default.Unauthorized();
+    };
+    MongoDBUserRepository.prototype.getUser = function (userId, request) {
         return __awaiter(this, void 0, void 0, function () {
-            var jwt, user;
+            var user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        jwt = Object.values(third.rawHeaders).find(function (k) { return k.includes("Bearer"); });
-                        console.log("JWT " + jwt);
-                        return [4 /*yield*/, User.findById(userId)];
+                    case 0: return [4 /*yield*/, User.findById(userId)];
                     case 1:
                         user = _a.sent();
                         if (!user)
@@ -113,14 +122,30 @@ var MongoDBUserRepository = /** @class */ (function () {
             });
         });
     };
-    MongoDBUserRepository.prototype.followUser = function (userId, followeeId) {
+    MongoDBUserRepository.prototype.followUser = function (userId, followeeId, request) {
         return __awaiter(this, void 0, void 0, function () {
             var user;
             return __generator(this, function (_a) {
+                // TODO: Ensure that the userId is the same as the jwt.
+                this.checkUserAuthorization(userId, request);
                 user = User.findById(userId);
                 if (!user)
                     throw new http_errors_1.default.NotFound();
                 user.followees.push(followeeId);
+                user.save();
+                return [2 /*return*/, true];
+            });
+        });
+    };
+    MongoDBUserRepository.prototype.unfollowUser = function (userId, followeeId, request) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                this.checkUserAuthorization(userId, request);
+                user = User.findById(userId);
+                if (!user)
+                    throw new http_errors_1.default.notFound();
+                user.followees.pull({ _id: followeeId });
                 user.save();
                 return [2 /*return*/, true];
             });

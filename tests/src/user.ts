@@ -5,15 +5,8 @@ import "mocha";
 import {expect} from "chai";
 import axios from "axios";
 import decode from "jwt-decode";
+import { authUrl, gqlUrl, password, secondPassword, secondUserName, userName } from "./helpers/helpers";
 
-const authUrl = process.env.AUTH_SERVICE_URL;
-const gqlUrl = process.env.GRAPHQL_SERVICE_ULR;
-
-const userName = "charles_babbage";
-const password = "1234";
-
-const secondUserName = "grace_hopper";
-const secondPassword = "1234";
 
 describe("Fetch Users", () => {
 

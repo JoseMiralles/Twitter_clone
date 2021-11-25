@@ -39,15 +39,15 @@ button, input[type="submit"] {
     background-color: $main-color;
 
     &:hover {
-        background-color: darken($color: $main-color, $amount: 10);
+        background-color: lighten($color: $main-color, $amount: 3);
     }
 }
 
 .btn-secondary {
-    color: $foreground !important;
-    background-color: darken($color: $background, $amount: 4) !important;
+    color: $background !important;
+    background-color: $foreground!important;
 
     &:hover {
-        background-color: darken($color: $background, $amount: 10) !important;
+        background-color: lighten($color: $foreground, $amount: 10) !important;
     }
 }
