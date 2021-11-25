@@ -71,7 +71,7 @@ describe("Fetch Users", () => {
     });
 
     describe("Follow", async () => {
-        it ("should be able to follow a user", async () => {
+        it ("should be able to follow a user, as well as get a list of users being followed", async () => {
 
             const res = await axios({
                 url: gqlUrl,
@@ -79,17 +79,28 @@ describe("Fetch Users", () => {
                 data: {
                     mutate: `
                         {
-                            followUser(id: "${userId}", followeeId: "${secondUserId}") {
-                                id
-                                userName
+                            followUser(id: "${userId}", followeeId: "${secondUserId}")
+                        }
+                    `
+                }
+            });
+
+            expect(res.status).to.be.equal(200);
+
+            const res2 = await axios({
+                url: gqlUrl,
+                method: "POST",
+                data: {
+                    query: `
+                        {
+                            getFollowees(id: "${userId}") {
+                                id,
+                                name
                             }
                         }
                     `
                 }
             });
-        });
-        it ("should be able to retreive a list of the users being followed by the user", async () => {
-
         });
         it ("should be able to retreive a list of the people following the user", async () => {
 

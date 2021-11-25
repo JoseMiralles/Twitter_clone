@@ -77,12 +77,15 @@ var User = mongoose_1.default.model("user", userSchema);
 var MongoDBUserRepository = /** @class */ (function () {
     function MongoDBUserRepository() {
     }
-    MongoDBUserRepository.prototype.getUser = function (userId) {
+    MongoDBUserRepository.prototype.getUser = function (userId, third) {
         return __awaiter(this, void 0, void 0, function () {
-            var user;
+            var jwt, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, User.findById(userId)];
+                    case 0:
+                        jwt = Object.values(third.rawHeaders).find(function (k) { return k.includes("Bearer"); });
+                        console.log("JWT " + jwt);
+                        return [4 /*yield*/, User.findById(userId)];
                     case 1:
                         user = _a.sent();
                         if (!user)
@@ -107,6 +110,19 @@ var MongoDBUserRepository = /** @class */ (function () {
                         followees = _a.sent();
                         return [2 /*return*/, followees];
                 }
+            });
+        });
+    };
+    MongoDBUserRepository.prototype.followUser = function (userId, followeeId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                user = User.findById(userId);
+                if (!user)
+                    throw new http_errors_1.default.NotFound();
+                user.followees.push(followeeId);
+                user.save();
+                return [2 /*return*/, true];
             });
         });
     };

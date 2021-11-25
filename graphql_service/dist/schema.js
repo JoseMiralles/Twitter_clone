@@ -25,7 +25,7 @@ var rootQueryType = new graphql_1.GraphQLObjectType({
             type: UserType,
             description: "Get a single user by id",
             args: { id: { type: graphql_1.GraphQLString } },
-            resolve: function (user, args) { return userRepository_1.default.getUser(args.id); }
+            resolve: function (user, args, third) { return userRepository_1.default.getUser(args.id, third); }
         }
     }); }
 });
