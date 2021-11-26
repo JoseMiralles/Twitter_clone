@@ -1,0 +1,51 @@
+@import "../../colors.scss";
+
+#compose-tweet-modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    height: 100vh;
+    width: 100vw;
+
+    background-color: $background;
+}
+
+#modal-top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 50px;
+    border-bottom: 1px solid $border-color;
+}
+
+#close-modal-button {
+    color: $foreground;
+    background: unset;
+    width: 50px;
+}
+
+#form-icon-row {
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+
+    #bar-icon-wrapper {
+        align-items: flex-start;
+    }
+}
+
+#compose-tweet-form {
+    flex-grow: 1;
+    display: flex;
+
+    textarea {
+        flex-grow: 1;
+        border: none;
+        min-height: 300px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

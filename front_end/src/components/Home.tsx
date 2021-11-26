@@ -19,9 +19,6 @@ const Home = () => {
 
     return(
         <section id="home-wrapper" className="page">
-            <div id="home">
-                
-            </div>
 
             <ComposeButton floating={true} />
 
