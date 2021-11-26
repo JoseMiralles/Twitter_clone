@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setModal } from "../../actions/UIActions";
 import ProfileIcon from "../ProfileIcon";
 import "./compose-tweet-modal.scss"
 
 const ComposeTweetModal = () => {
+
+    const [body, setBody] = useState("");
 
     const dispatch = useDispatch();
 
@@ -24,9 +26,15 @@ const ComposeTweetModal = () => {
                     <ProfileIcon/>
                     <form id="compose-tweet-form">
                         <textarea
-                        id="tweet-body-input"
-                        placeholder="What's happening?"/>
+                            id="tweet-body-input"
+                            placeholder="What's happening?"
+                            value={body}
+                            onChange={(e) => {setBody(e.target.value)}} />
                     </form>
+                </div>
+
+                <div id="under-form-row">
+                    <button>Post</button>
                 </div>
 
             </div>

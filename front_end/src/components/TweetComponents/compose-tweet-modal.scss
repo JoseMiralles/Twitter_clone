@@ -38,14 +38,22 @@
 #compose-tweet-form {
     flex-grow: 1;
     display: flex;
+    border-bottom: solid 1px $border-color;
 
     textarea {
         flex-grow: 1;
         border: none;
-        min-height: 300px;
+        min-height: 150px;
 
         &:focus {
             outline: none;
         }
     }
+}
+
+#under-form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0px 15px 0px 15px;
 }
