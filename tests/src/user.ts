@@ -8,7 +8,7 @@ import decode from "jwt-decode";
 import { authUrl, gqlUrl, password, secondPassword, secondUserName, userName } from "./helpers/helpers";
 
 
-describe("Fetch Users", () => {
+describe("Users", () => {
 
     let accessToken: string;
     let userId: string;
@@ -61,42 +61,5 @@ describe("Fetch Users", () => {
 
             expect(res.data.data.user.userName).to.be.equal(userName);
         })
-    });
-
-    describe("Follow", async () => {
-        it ("should be able to follow a user, as well as get a list of users being followed", async () => {
-
-            const res = await axios({
-                url: gqlUrl,
-                method: "POST",
-                data: {
-                    mutate: `
-                        {
-                            followUser(id: "${userId}", followeeId: "${secondUserId}")
-                        }
-                    `
-                }
-            });
-
-            expect(res.status).to.be.equal(200);
-
-            const res2 = await axios({
-                url: gqlUrl,
-                method: "POST",
-                data: {
-                    query: `
-                        {
-                            getFollowees(id: "${userId}") {
-                                id,
-                                name
-                            }
-                        }
-                    `
-                }
-            });
-        });
-        it ("should be able to retreive a list of the people following the user", async () => {
-
-        });
     });
 });
